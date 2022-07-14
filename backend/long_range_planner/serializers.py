@@ -1,21 +1,22 @@
 from rest_framework import serializers
-from .models import LineOfEffort, Resource, Task
+from .models import LineOfEffort, Asset, Task
 
 
 class LineOfEffortSerializer(serializers.ModelSerializer):
     class Meta:
         model = LineOfEffort
         fields = ['id', 'name']
-        
 
-class ResourceSerializer(serializers.ModelSerializer):
+
+class AssetSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Resource
+        model = Asset
         fields = ['id', 'name']
+
 
 class TaskSerializer(serializers.ModelSerializer):
     class Meta:
         model = Task
-        fields = ['id', 'name', 'resource', 'start_date', 'end_date', 'duration', 'percent_complete', 'dependencies', 'resource_id', 'lineOfEffort_id']
+        fields = ['id', 'name', 'resource', 'start_date', 'end_date', 'duration',
+                  'percent_complete', 'dependencies', 'asset_id', 'lineOfEffort_id']
         depth = 1
-        

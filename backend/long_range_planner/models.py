@@ -7,9 +7,9 @@ from django.db import models
 class LineOfEffort(models.Model):
     name = models.CharField(max_length=255)
 
-class Resource(models.Model):
+
+class Asset(models.Model):
     name = models.CharField(max_length=255)
-    
 
 
 class Task(models.Model):
@@ -20,5 +20,5 @@ class Task(models.Model):
     duration = models.IntegerField()
     percent_complete = models.IntegerField()
     dependencies = models.CharField(max_length=255)
-    resource = models.ForeignKey(Resource, on_delete=CASCADE)
-    lineOfEffort = models.ForeignKey(LineOfEffort, on_delete=CASCADE)
+    resource = models.ForeignKey(Asset, on_delete=models.CASCADE)
+    lineOfEffort = models.ForeignKey(LineOfEffort, on_delete=models.CASCADE)
