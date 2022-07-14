@@ -1,3 +1,4 @@
+from tkinter import CASCADE
 from django.db import models
 
 # Create your models here.
@@ -5,6 +6,10 @@ from django.db import models
 
 class LineOfEffort(models.Model):
     name = models.CharField(max_length=255)
+
+class Resource(models.Model):
+    name = models.CharField(max_length=255)
+    
 
 
 class Task(models.Model):
@@ -15,7 +20,5 @@ class Task(models.Model):
     duration = models.IntegerField()
     percent_complete = models.IntegerField()
     dependencies = models.CharField(max_length=255)
-
-
-class Resource(models.Model):
-    name = models.CharField(max_length=255)
+    resource = models.ForeignKey(Resource, on_delete=CASCADE)
+    lineOfEffort = models.ForeignKey(LineOfEffort, on_delete=CASCADE)
