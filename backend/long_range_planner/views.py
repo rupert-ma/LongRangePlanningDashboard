@@ -22,3 +22,27 @@ class LinesOfEffort(APIView):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+class Assets(APIView):
+    def get(self, request):
+        assets = Asset.objects.all()
+        serializer = AssetSerializer(assets, many=True)
+        return Response(serializer.data)
+    
+    def post(self, request):
+        serializer = AssetSerializer(data = request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+class Tasks(APIView):
+    def get(self, request):
+        assets = Task.objects.all()
+        serializer = TaskSerializer(assets, many=True)
+        return Response(serializer.data)
+    
+    def post(self, request):
+        serializer = TaskSerializer(data = request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
