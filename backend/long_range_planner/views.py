@@ -16,33 +16,48 @@ class LinesOfEffort(APIView):
         linesOfEfforts = LineOfEffort.objects.all()
         serializer = LineOfEffortSerializer(linesOfEfforts, many=True)
         return Response(serializer.data)
-    
+
     def post(self, request):
-        serializer = LineOfEffortSerializer(data = request.data)
+        serializer = LineOfEffortSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
+
 
 class Assets(APIView):
     def get(self, request):
         assets = Asset.objects.all()
         serializer = AssetSerializer(assets, many=True)
         return Response(serializer.data)
-    
+
     def post(self, request):
-        serializer = AssetSerializer(data = request.data)
+        serializer = AssetSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
+
 class Tasks(APIView):
+    def get_object(self, pk):
+        try:
+            return Task.objects.get(pk=pk)
+        except Task.DoesNotExist:
+            raise Http404
+
     def get(self, request):
         assets = Task.objects.all()
         serializer = TaskSerializer(assets, many=True)
         return Response(serializer.data)
-    
+
     def post(self, request):
-        serializer = TaskSerializer(data = request.data)
+        serializer = TaskSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+    def put(self, request, pk):
+        task = self.get_object(pk=pk)
+        serializer = TaskSerializer(task, data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_200_OK)
