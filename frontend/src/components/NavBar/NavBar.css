@@ -33,3 +33,16 @@ li {
   cursor: pointer;
   font-size: 2rem;
 }
+
+/* .inputone {
+  background: transparent;
+  border: 2px solid white;
+  color: white;
+  padding: 0.4rem 0.5rem;
+}
+
+.inputone:hover {
+  background: white;
+  color: steelblue;
+  cursor: pointer;
+} */

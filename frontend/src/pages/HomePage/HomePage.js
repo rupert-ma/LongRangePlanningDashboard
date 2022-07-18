@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import useAuth from "../../hooks/useAuth";
-
+import AddLoeForm from "../../components/AddLoeForm/AddLoeForm";
 import axios from "axios";
 import DisplayGoogleChart from "../../components/DisplayGoogleChart/DisplayGoogleChart";
 import DisplayLineOfEffort from "../../components/DisplayLineOfEffort/DisplayLineOfEffort";
@@ -12,6 +12,23 @@ const HomePage = () => {
     //TODO: Add an AddCars Page to add a car for a logged in user's garage
     const [user, token] = useAuth();
     const [linesOfEffort, setLinesOfEffort] = useState([]);
+    const [isOpen, setIsOpen] = useState(false);
+
+    const togglePopup = () => {
+        setIsOpen(!isOpen);
+    };
+
+    async function createNewLoe(loeName) {
+        try {
+            let response = await axios.post(
+                `http://127.0.0.1:8000/api/LRPlanner/`,
+                loeName
+            );
+            getLinesOfEffort();
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     useEffect(() => {
         getLinesOfEffort();
@@ -31,7 +48,19 @@ const HomePage = () => {
 
     return (
         <div className="container">
-            <h1>Home Page for {user.username}!</h1>
+            {/* <AddLoeForm handleClose={togglePopup} createNewLoe={createNewLoe} /> */}
+            {/* <h1>Home Page for {user.username}!</h1> */}
+            <li>
+                    <input
+                        type="button"
+                        value="Add New Project"
+                        onClick={togglePopup}
+                        className="inputone"
+                    />
+                    {isOpen && (
+                        <AddLoeForm createNewLoe={createNewLoe} handleClose={togglePopup}  />
+                    )}
+                </li>
             <div>
                 <DisplayLineOfEffort linesOfEffort={linesOfEffort} />
             </div>
