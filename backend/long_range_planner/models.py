@@ -17,9 +17,9 @@ class Task(models.Model):
     resource = models.CharField(max_length=255)
     start_date = models.DateTimeField()
     end_date = models.DateTimeField()
-    duration = models.IntegerField()
+    duration = models.IntegerField(null=True)
     percent_complete = models.IntegerField()
-    dependencies = models.CharField(max_length=255)
+    dependencies = models.CharField(max_length=255, null=True)
     asset = models.ForeignKey(Asset, on_delete=models.CASCADE,related_name='assets')
     lineOfEffort = models.ForeignKey(
         LineOfEffort, on_delete=models.CASCADE, related_name='effort')
