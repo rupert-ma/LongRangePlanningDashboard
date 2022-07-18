@@ -23,6 +23,11 @@ class LinesOfEffort(APIView):
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
+    def delete(self, request, pk):
+        loe = self.get_object(pk)
+        loe.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
 
 class Assets(APIView):
     def get(self, request):
@@ -35,6 +40,11 @@ class Assets(APIView):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
+    
+    def delete(self, request, pk):
+        asset = self.get_object(pk)
+        asset.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 class Tasks(APIView):
@@ -61,3 +71,8 @@ class Tasks(APIView):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def delete(self, request, pk):
+        task = self.get_object(pk)
+        task.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
