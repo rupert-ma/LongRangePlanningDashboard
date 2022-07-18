@@ -15,8 +15,8 @@ class Asset(models.Model):
 class Task(models.Model):
     name = models.CharField(max_length=255)
     resource = models.CharField(max_length=255)
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField()
+    start_date = models.DateField()
+    end_date = models.DateField()
     duration = models.IntegerField(null=True)
     percent_complete = models.IntegerField()
     dependencies = models.CharField(max_length=255, null=True)

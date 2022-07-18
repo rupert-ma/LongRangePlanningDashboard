@@ -48,19 +48,20 @@ const HomePage = () => {
 
     return (
         <div className="container">
-            {/* <AddLoeForm handleClose={togglePopup} createNewLoe={createNewLoe} /> */}
             {/* <h1>Home Page for {user.username}!</h1> */}
-            <li>
-                    <input
-                        type="button"
-                        value="Add New Project"
-                        onClick={togglePopup}
-                        className="inputone"
-                    />
-                    {isOpen && (
-                        <AddLoeForm createNewLoe={createNewLoe} handleClose={togglePopup}  />
-                    )}
-                </li>
+
+            <input
+                type="button"
+                value="Add New Project"
+                onClick={togglePopup}
+                className="inputone"
+            />
+            {isOpen && (
+                <AddLoeForm
+                    createNewLoe={createNewLoe}
+                    handleClose={togglePopup}
+                />
+            )}
             <div>
                 <DisplayLineOfEffort linesOfEffort={linesOfEffort} />
             </div>

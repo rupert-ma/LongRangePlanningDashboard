@@ -34,18 +34,18 @@ const DisplayGoogleChart = ({ loe }) => {
 
         let distinctTasks = [...new Set(filteredTasks)];
         console.log("distinctTasks", distinctTasks);
-        let rows = [
-            "",
-            "",
-            "",
-            new Date(2022, 1, 1),
-            new Date(2022, 12, 31),
-            null,
-            100,
-            null,
-          ]
+        // let rows = [
+        //     "",
+        //     "",
+        //     "",
+        //     new Date(2022, 1, 1),
+        //     new Date(2022, 12, 31),
+        //     null,
+        //     100,
+        //     null,
+        //   ]
 
-        rows = filteredTasks.map((task) => {
+        let rows = filteredTasks.map((task) => {
             let newNewRows = Object.values(task);
             newNewRows.pop();
             newNewRows.pop();
@@ -88,17 +88,9 @@ const DisplayGoogleChart = ({ loe }) => {
     ];
 
     const options = {
-        vAxis: {
-            viewWindowMode: "explicit",
-            viewWindow: {
-                min: new Date(2022, 1, 1),
-                max: new Date(2015, 12, 31),
-            },
-
-            height: 400,
-            gantt: {
-                trackHeight: 30,
-            },
+        height: 400,
+        gantt: {
+            trackHeight: 30,
         },
     };
 
