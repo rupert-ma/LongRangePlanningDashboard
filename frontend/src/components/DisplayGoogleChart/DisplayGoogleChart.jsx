@@ -2,11 +2,9 @@ import React, { useState, useEffect } from "react";
 import { Chart } from "react-google-charts";
 import axios from "axios";
 
-const DisplayGoogleChart = ({ loe }) => {
-    const [tasks, setTasks] = useState([]);
-    useEffect(() => {
-        getTasks();
-    }, []);
+const DisplayGoogleChart = ({ loe, tasks }) => {
+    // const [tasks, setTasks] = useState([]);
+   
 
     console.log("loe", loe);
 
@@ -14,17 +12,7 @@ const DisplayGoogleChart = ({ loe }) => {
     //isolate tasks by those associated with loe
     //format data from task into format below
 
-    const getTasks = async () => {
-        try {
-            let response = await axios.get(
-                "http://127.0.0.1:8000/api/LRPlanner/tasks/"
-            );
-            setTasks(response.data);
-        } catch (error) {
-            console.log(error);
-        }
-    };
-    console.log("tasks", tasks);
+   
 
     function generateDataforChart() {
         let filteredTasks = tasks.filter(
