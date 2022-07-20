@@ -5,7 +5,7 @@ import axios from "axios";
 const DisplayGoogleChart = ({ loe, tasks }) => {
     // const [tasks, setTasks] = useState([]);
 
-    console.log("loe", loe);
+    // console.log("loe", loe);
 
     //axios call to all tasks
     //isolate tasks by those associated with loe

@@ -9,9 +9,13 @@ from .models import LineOfEffort, Asset, Task
 from .serializers import LineOfEffortSerializer, AssetSerializer, TaskSerializer
 
 
-# Create your views here.
-
 class LinesOfEffort(APIView):
+    def get_object(self, pk):
+        try:
+            return Task.objects.get(pk=pk)
+        except Task.DoesNotExist:
+            raise Http404
+
     def get(self, request):
         linesOfEfforts = LineOfEffort.objects.all()
         serializer = LineOfEffortSerializer(linesOfEfforts, many=True)
@@ -23,6 +27,14 @@ class LinesOfEffort(APIView):
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
+    
+class LineOfEffortDelete(APIView):
+    def get_object(self, pk):
+        try:
+            return LineOfEffort.objects.get(pk=pk)
+        except LineOfEffort.DoesNotExist:
+            raise Http404
+            
     def delete(self, request, pk):
         loe = self.get_object(pk)
         loe.delete()
@@ -30,6 +42,12 @@ class LinesOfEffort(APIView):
 
 
 class Assets(APIView):
+    def get_object(self, pk):
+        try:
+            return Task.objects.get(pk=pk)
+        except Task.DoesNotExist:
+            raise Http404
+
     def get(self, request):
         assets = Asset.objects.all()
         serializer = AssetSerializer(assets, many=True)
@@ -40,7 +58,7 @@ class Assets(APIView):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
-    
+
     def delete(self, request, pk):
         asset = self.get_object(pk)
         asset.delete()

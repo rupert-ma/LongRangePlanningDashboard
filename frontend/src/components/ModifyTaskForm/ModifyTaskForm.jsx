@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const AddTaskForm = ({ createNewTask, loe }) => {
+const ModifyTaskForm = ({ createNewTask, loe }) => {
     const [taskName, setTaskName] = useState('');
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
@@ -48,4 +48,4 @@ const AddTaskForm = ({ createNewTask, loe }) => {
     );
 };
 
-export default AddTaskForm;
+export default ModifyTaskForm;

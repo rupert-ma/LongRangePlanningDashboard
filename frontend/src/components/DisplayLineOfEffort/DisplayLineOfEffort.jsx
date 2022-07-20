@@ -3,7 +3,7 @@ import AddTaskForm from "../AddTaskForm/AddTaskForm";
 import DisplayGoogleChart from "../DisplayGoogleChart/DisplayGoogleChart";
 import axios from "axios";
 
-const DisplayLineOfEffort = ({ linesOfEffort }) => {
+const DisplayLineOfEffort = ({ linesOfEffort, deleteLineOfEffort }) => {
     const [tasks, setTasks] = useState([]);
     useEffect(() => {
         getTasks();
@@ -19,7 +19,7 @@ const DisplayLineOfEffort = ({ linesOfEffort }) => {
             console.log(error);
         }
     };
-    console.log("tasks", tasks);
+    // console.log("tasks", tasks);
 
     async function createNewTask(newTask) {
         // console.log("newtask from createnewtask function", newTask);
@@ -32,55 +32,39 @@ const DisplayLineOfEffort = ({ linesOfEffort }) => {
             console.log(error);
         }
     }
-    function buildComponantList() {
-        // let projectMap = linesOfEffort.map((loe, index) => {
-            
-        //     // let filteredTasks = tasks.filter(
-        //     //     (task) => task.lineOfEffort_id == loe.id
-        //     // );
-        //     for(let i =0; i<tasks.length;i++){
-        //          if (tasks[i].id === loe.id) {
-        //         return [
-        //             <div key={index}>
-        //                 <h1>{loe.name}</h1>
-        //                 <AddTaskForm loe={loe} createNewTask={createNewTask} />
-                        
-        //                 <DisplayGoogleChart tasks={tasks} loe={loe} />
-        //             </div>
-        //         ];
-        //     }
-           
-        //     // } else {
-        //     //     return [
-        //     //         <div key={index}>
-        //     //             <h1>{loe.name}</h1>
-        //     //             <AddTaskForm loe={loe} createNewTask={createNewTask} />
-        //     //         </div>
-        //     //     ];
-        //     // }
-        // });
 
-        //return [taskMap];
-        //}
-        // //);
-        // let distinctProjectMap = [...new Set(projectMap)];
-        // return projectMap;
+    async function handleDelete(pk) {
+        deleteLineOfEffort(pk);
     }
 
-    //return <div>{buildComponantList()}</div>;
     return (
         <div>
-            {console.log("line of effort:", linesOfEffort)}
-            {console.log("tasks:", tasks)}
+            {/* {console.log("line of effort:", linesOfEffort)}
+            {console.log("tasks:", tasks)} */}
             {linesOfEffort.map((loe, index) => {
                 // console.log("***linesofeffort", linesOfEffort);
                 // console.log("***tasks", tasks);
                 return (
                     <div key={index}>
-                        <h1>{loe.name}</h1><button>Delete Project</button>
+                        <h1>{loe.name}</h1>
+
                         <AddTaskForm loe={loe} createNewTask={createNewTask} />
-                        {tasks.filter(el => el.lineOfEffort_id == loe.id).length > 0 ? (
-                            <DisplayGoogleChart tasks={tasks} loe={loe} />
+                        <button
+                            value={loe.id}
+                            onClick={(event) =>
+                                handleDelete(event.target.value)
+                            }
+                        >
+                            Delete Project
+                        </button>
+
+                        {tasks.filter((el) => el.lineOfEffort_id == loe.id)
+                            .length > 0 ? (
+                            <div>
+                                <DisplayGoogleChart tasks={tasks} loe={loe} />
+                                
+                                
+                            </div>
                         ) : (
                             <p></p>
                         )}

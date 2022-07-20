@@ -13,6 +13,11 @@ const HomePage = () => {
     const [user, token] = useAuth();
     const [linesOfEffort, setLinesOfEffort] = useState([]);
     const [isOpen, setIsOpen] = useState(false);
+    const [value, setValue] = useState("Select Task to Modify");
+
+    const handleChange = (event) => {
+        setValue(event.target.value);
+    };
 
     const togglePopup = () => {
         setIsOpen(!isOpen);
@@ -46,6 +51,14 @@ const HomePage = () => {
         console.log(linesOfEffort);
     }
 
+    async function deleteLineOfEffort(pk) {
+        console.log("pk", pk);
+        let response = await axios.delete(
+            `http://127.0.0.1:8000/api/LRPlanner/loedelete/${pk}/`
+        );
+        getLinesOfEffort();
+    }
+
     return (
         <div className="container">
             {/* <h1>Home Page for {user.username}!</h1> */}
@@ -62,8 +75,14 @@ const HomePage = () => {
                     handleClose={togglePopup}
                 />
             )}
+            <select>
+                <option value="fruit">Fruit</option>
+            </select>
             <div>
-                <DisplayLineOfEffort linesOfEffort={linesOfEffort} />
+                <DisplayLineOfEffort
+                    linesOfEffort={linesOfEffort}
+                    deleteLineOfEffort={deleteLineOfEffort}
+                />
             </div>
         </div>
     );
