@@ -4,7 +4,6 @@ import axios from "axios";
 
 const DisplayGoogleChart = ({ loe, tasks }) => {
     // const [tasks, setTasks] = useState([]);
-   
 
     console.log("loe", loe);
 
@@ -12,26 +11,11 @@ const DisplayGoogleChart = ({ loe, tasks }) => {
     //isolate tasks by those associated with loe
     //format data from task into format below
 
-   
-
     function generateDataforChart() {
         let filteredTasks = tasks.filter(
             (task) => task.lineOfEffort_id == loe.id
         );
-        console.log("filteredtasks", filteredTasks);
-
-        let distinctTasks = [...new Set(filteredTasks)];
-        console.log("distinctTasks", distinctTasks);
-        // let rows = [
-        //     "",
-        //     "",
-        //     "",
-        //     new Date(2022, 1, 1),
-        //     new Date(2022, 12, 31),
-        //     null,
-        //     100,
-        //     null,
-        //   ]
+        // console.log("filteredtasks", filteredTasks);
 
         let rows = filteredTasks.map((task) => {
             let newNewRows = Object.values(task);
@@ -52,13 +36,13 @@ const DisplayGoogleChart = ({ loe, tasks }) => {
             newNewRows[3] = new Date(startDate);
             newNewRows[4] = new Date(endDate);
 
-            console.log("startdate", startDate);
-            console.log("enddate", endDate);
+            // console.log("startdate", startDate);
+            // console.log("enddate", endDate);
 
-            console.log("newnewrows", newNewRows);
+            // console.log("newnewrows", newNewRows);
             return newNewRows;
         });
-        console.log("rows", rows);
+        // console.log("rows", rows);
         const data = [columns, ...rows];
 
         return data;
