@@ -3,17 +3,17 @@ import AddTaskForm from "../AddTaskForm/AddTaskForm";
 import DisplayGoogleChart from "../DisplayGoogleChart/DisplayGoogleChart";
 import axios from "axios";
 import ModifyTaskForm from "../ModifyTaskForm/ModifyTaskForm";
-import DeleteTask from "../DeleteTask/DeleteTask";
 
-const DisplayLineOfEffort = ({ linesOfEffort, deleteLineOfEffort, deleteTask }) => {
+const DisplayLineOfEffort = ({
+    linesOfEffort,
+    deleteLineOfEffort,
+    deleteTask,
+}) => {
     const [tasks, setTasks] = useState([]);
     const [taskid, setTaskid] = useState();
 
-    // let filteredTasks = tasks.filter((task) => task.lineOfEffort_id == loe.id);
-
-
-    function handleSubmit(event){
-        deleteTask(taskid)
+    function handleSubmit(event) {
+        deleteTask(taskid);
     }
 
     useEffect(() => {
@@ -98,11 +98,16 @@ const DisplayLineOfEffort = ({ linesOfEffort, deleteLineOfEffort, deleteTask }) 
                                     <option value="">
                                         --Please choose an option--
                                     </option>
-                                    {tasks.filter((task) => task.lineOfEffort_id == loe.id).map((task) => (
-                                        <option value={task.id}>
-                                            {task.name}
-                                        </option>
-                                    ))}
+                                    {tasks
+                                        .filter(
+                                            (task) =>
+                                                task.lineOfEffort_id == loe.id
+                                        )
+                                        .map((task) => (
+                                            <option value={task.id}>
+                                                {task.name}
+                                            </option>
+                                        ))}
                                 </select>
                                 <button type="submit">Submit</button>
                             </form>

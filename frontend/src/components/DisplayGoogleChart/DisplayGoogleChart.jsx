@@ -67,7 +67,7 @@ const DisplayGoogleChart = ({ loe, tasks }) => {
     };
 
     return (
-        <Chart
+        <Chart 
             chartType="Gantt"
             width="100%"
             height="50%"
