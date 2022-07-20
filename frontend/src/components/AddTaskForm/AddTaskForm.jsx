@@ -24,7 +24,7 @@ const AddTaskForm = ({ createNewTask, loe }) => {
             asset_id:asset_id,
             lineOfEffort_id:lineOfEffort_id,
         };
-        // console.log("newTask",newTask)
+        console.log("newTask",newTask)
         createNewTask(newTask);
     }
 

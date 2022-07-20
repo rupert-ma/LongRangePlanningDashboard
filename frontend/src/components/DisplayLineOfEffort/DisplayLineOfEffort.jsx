@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import AddTaskForm from "../AddTaskForm/AddTaskForm";
 import DisplayGoogleChart from "../DisplayGoogleChart/DisplayGoogleChart";
 import axios from "axios";
+import ModifyTaskForm from "../ModifyTaskForm/ModifyTaskForm";
 
 const DisplayLineOfEffort = ({ linesOfEffort, deleteLineOfEffort }) => {
     const [tasks, setTasks] = useState([]);
@@ -31,6 +32,20 @@ const DisplayLineOfEffort = ({ linesOfEffort, deleteLineOfEffort }) => {
         } catch (error) {
             console.log(error);
         }
+        getTasks()
+    }
+
+    async function modifyTask(newTask) {
+        console.log("newtask from modifytask function", newTask);
+        try {
+            let response = await axios.put(
+                `http://127.0.0.1:8000/api/LRPlanner/tasks/${newTask.id}/`,
+                newTask
+            );
+        } catch (error) {
+            console.log(error);
+        }
+        getTasks()
     }
 
     async function handleDelete(pk) {
@@ -47,8 +62,6 @@ const DisplayLineOfEffort = ({ linesOfEffort, deleteLineOfEffort }) => {
                 return (
                     <div key={index}>
                         <h1>{loe.name}</h1>
-
-                        <AddTaskForm loe={loe} createNewTask={createNewTask} />
                         <button
                             value={loe.id}
                             onClick={(event) =>
@@ -57,13 +70,17 @@ const DisplayLineOfEffort = ({ linesOfEffort, deleteLineOfEffort }) => {
                         >
                             Delete Project
                         </button>
+                        <AddTaskForm loe={loe} createNewTask={createNewTask} />
+                        <ModifyTaskForm
+                            modifyTask={modifyTask}
+                            loe={loe}
+                            tasks={tasks}
+                        />
 
                         {tasks.filter((el) => el.lineOfEffort_id == loe.id)
                             .length > 0 ? (
                             <div>
                                 <DisplayGoogleChart tasks={tasks} loe={loe} />
-                                
-                                
                             </div>
                         ) : (
                             <p></p>

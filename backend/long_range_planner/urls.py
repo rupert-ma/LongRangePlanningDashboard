@@ -10,5 +10,5 @@ urlpatterns = [
     path('asset/post/', views.Assets.as_view()),
     path('tasks/', views.Tasks.as_view()),
     path('tasks/post/', views.Tasks.as_view()),
-    path('tasks/<int:pk>', views.Tasks.as_view()),
+    path('tasks/<int:pk>/', views.Tasks.as_view()),
     ]  

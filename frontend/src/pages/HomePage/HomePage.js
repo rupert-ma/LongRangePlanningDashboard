@@ -13,11 +13,7 @@ const HomePage = () => {
     const [user, token] = useAuth();
     const [linesOfEffort, setLinesOfEffort] = useState([]);
     const [isOpen, setIsOpen] = useState(false);
-    const [value, setValue] = useState("Select Task to Modify");
-
-    const handleChange = (event) => {
-        setValue(event.target.value);
-    };
+   
 
     const togglePopup = () => {
         setIsOpen(!isOpen);
@@ -75,9 +71,7 @@ const HomePage = () => {
                     handleClose={togglePopup}
                 />
             )}
-            <select>
-                <option value="fruit">Fruit</option>
-            </select>
+            
             <div>
                 <DisplayLineOfEffort
                     linesOfEffort={linesOfEffort}
