@@ -13,7 +13,6 @@ const HomePage = () => {
     const [user, token] = useAuth();
     const [linesOfEffort, setLinesOfEffort] = useState([]);
     const [isOpen, setIsOpen] = useState(false);
-   
 
     const togglePopup = () => {
         setIsOpen(!isOpen);
@@ -55,6 +54,14 @@ const HomePage = () => {
         getLinesOfEffort();
     }
 
+    async function deleteTask(pk) {
+        console.log("pk", pk);
+        let response = await axios.delete(
+            `http://127.0.0.1:8000/api/LRPlanner/tasks/${pk}/`
+        );
+        getLinesOfEffort();
+    }
+
     return (
         <div className="container">
             {/* <h1>Home Page for {user.username}!</h1> */}
@@ -71,11 +78,12 @@ const HomePage = () => {
                     handleClose={togglePopup}
                 />
             )}
-            
+
             <div>
                 <DisplayLineOfEffort
                     linesOfEffort={linesOfEffort}
                     deleteLineOfEffort={deleteLineOfEffort}
+                    deleteTask={deleteTask}
                 />
             </div>
         </div>

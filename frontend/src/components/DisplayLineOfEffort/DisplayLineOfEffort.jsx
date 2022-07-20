@@ -3,9 +3,19 @@ import AddTaskForm from "../AddTaskForm/AddTaskForm";
 import DisplayGoogleChart from "../DisplayGoogleChart/DisplayGoogleChart";
 import axios from "axios";
 import ModifyTaskForm from "../ModifyTaskForm/ModifyTaskForm";
+import DeleteTask from "../DeleteTask/DeleteTask";
 
-const DisplayLineOfEffort = ({ linesOfEffort, deleteLineOfEffort }) => {
+const DisplayLineOfEffort = ({ linesOfEffort, deleteLineOfEffort, deleteTask }) => {
     const [tasks, setTasks] = useState([]);
+    const [taskid, setTaskid] = useState();
+
+    // let filteredTasks = tasks.filter((task) => task.lineOfEffort_id == loe.id);
+
+
+    function handleSubmit(event){
+        deleteTask(taskid)
+    }
+
     useEffect(() => {
         getTasks();
     }, []);
@@ -32,7 +42,7 @@ const DisplayLineOfEffort = ({ linesOfEffort, deleteLineOfEffort }) => {
         } catch (error) {
             console.log(error);
         }
-        getTasks()
+        getTasks();
     }
 
     async function modifyTask(newTask) {
@@ -45,7 +55,7 @@ const DisplayLineOfEffort = ({ linesOfEffort, deleteLineOfEffort }) => {
         } catch (error) {
             console.log(error);
         }
-        getTasks()
+        getTasks();
     }
 
     async function handleDelete(pk) {
@@ -76,6 +86,27 @@ const DisplayLineOfEffort = ({ linesOfEffort, deleteLineOfEffort }) => {
                             loe={loe}
                             tasks={tasks}
                         />
+                        <div>
+                            <form onSubmit={handleSubmit}>
+                                <label>Delete Task</label>
+                                <select
+                                    value={taskid}
+                                    onChange={(event) =>
+                                        setTaskid(event.target.value)
+                                    }
+                                >
+                                    <option value="">
+                                        --Please choose an option--
+                                    </option>
+                                    {tasks.filter((task) => task.lineOfEffort_id == loe.id).map((task) => (
+                                        <option value={task.id}>
+                                            {task.name}
+                                        </option>
+                                    ))}
+                                </select>
+                                <button type="submit">Submit</button>
+                            </form>
+                        </div>
 
                         {tasks.filter((el) => el.lineOfEffort_id == loe.id)
                             .length > 0 ? (
