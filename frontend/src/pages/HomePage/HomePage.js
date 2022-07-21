@@ -5,6 +5,7 @@ import AddLoeForm from "../../components/AddLoeForm/AddLoeForm";
 import axios from "axios";
 import DisplayGoogleChart from "../../components/DisplayGoogleChart/DisplayGoogleChart";
 import DisplayLineOfEffort from "../../components/DisplayLineOfEffort/DisplayLineOfEffort";
+import DisplayTeams from "../../components/DisplayTeams/DisplayTeams";
 
 const HomePage = () => {
     // The "user" value from this Hook contains the decoded logged in user information (username, first name, id)
@@ -13,10 +14,28 @@ const HomePage = () => {
     const [user, token] = useAuth();
     const [linesOfEffort, setLinesOfEffort] = useState([]);
     const [isOpen, setIsOpen] = useState(false);
+    const [teams, setTeams] = useState([]);
+    const [tasks, setTasks] = useState([]);
 
     const togglePopup = () => {
         setIsOpen(!isOpen);
     };
+
+    useEffect(() => {
+        getTasks();
+    }, []);
+
+    const getTasks = async () => {
+        try {
+            let response = await axios.get(
+                "http://127.0.0.1:8000/api/LRPlanner/tasks/"
+            );
+            setTasks(response.data);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+    console.log("tasks", tasks);
 
     async function createNewLoe(loeName) {
         try {
@@ -34,6 +53,21 @@ const HomePage = () => {
         getLinesOfEffort();
     }, []);
 
+    useEffect(() => {
+        async function getTeams() {
+            try {
+                let response = await axios.get(
+                    "http://127.0.0.1:8000/api/LRPlanner/asset/"
+                );
+                console.log("response", response.data);
+                setTeams(response.data);
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        getTeams();
+    }, []);
+
     async function getLinesOfEffort() {
         try {
             let response = await axios.get(
@@ -43,7 +77,7 @@ const HomePage = () => {
         } catch (error) {
             console.log(error);
         }
-        console.log(linesOfEffort);
+        // console.log(linesOfEffort);
     }
 
     async function deleteLineOfEffort(pk) {
@@ -85,6 +119,9 @@ const HomePage = () => {
                     deleteLineOfEffort={deleteLineOfEffort}
                     deleteTask={deleteTask}
                 />
+            </div>
+            <div>
+                <DisplayTeams teams={teams} tasks={tasks} />
             </div>
         </div>
     );

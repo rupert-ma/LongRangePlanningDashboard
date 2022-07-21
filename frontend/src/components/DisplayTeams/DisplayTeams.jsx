@@ -1,23 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from 'react';
 import { Chart } from "react-google-charts";
-import axios from "axios";
 
-const DisplayGoogleChart = ({ loe, tasks }) => {
-    // const [tasks, setTasks] = useState([]);
 
-    // console.log("loe", loe);
-
-    //axios call to all tasks
-    //isolate tasks by those associated with loe
-    //format data from task into format below
+const DisplayTeams = ({teams, tasks}) => {
+    console.log("display teams", teams);
 
     function generateDataforChart() {
-        let filteredTasks = tasks.filter(
-            (task) => task.lineOfEffort_id == loe.id
-        );
+        
+
+        // let filteredTasks = tasks.filter(
+        //     (task) => task.asset_id == teams.id
+        // );
         // console.log("filteredtasks", filteredTasks);
 
-        let rows = filteredTasks.map((task) => {
+        let rows = tasks.map((task) => {
             let newNewRows = Object.values(task);
             newNewRows.pop();
             newNewRows.pop();
@@ -35,6 +31,11 @@ const DisplayGoogleChart = ({ loe, tasks }) => {
             ];
             newNewRows[3] = new Date(startDate);
             newNewRows[4] = new Date(endDate);
+            let id = task.asset_id
+            //console.log('id',id)
+            //console.log('team name',teams[id].name)
+            newNewRows[1] = newNewRows[1] + " " + teams[id].name;
+
 
             // console.log("startdate", startDate);
             // console.log("enddate", endDate);
@@ -60,21 +61,27 @@ const DisplayGoogleChart = ({ loe, tasks }) => {
     ];
 
     const options = {
-        height: 400,
+        height: 1000,
         gantt: {
             trackHeight: 30,
         },
     };
 
-    return (
-        <Chart
+
+    return ( 
+        <div>
+            Teams section
+
+            <Chart
             chartType="Gantt"
             width="100%"
             height="50%"
             data={generateDataforChart()}
             options={options}
         />
-    );
-};
 
-export default DisplayGoogleChart;
+        </div>
+     );
+}
+ 
+export default DisplayTeams;

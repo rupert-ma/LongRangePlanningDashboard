@@ -109,7 +109,7 @@ const DisplayLineOfEffort = ({
                                             </option>
                                         ))}
                                 </select>
-                                <button type="submit">Submit</button>
+                                <button type="submit">Delete</button>
                             </form>
                         </div>
 
