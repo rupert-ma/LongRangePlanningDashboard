@@ -8,6 +8,7 @@ const DisplayLineOfEffort = ({
     linesOfEffort,
     deleteLineOfEffort,
     deleteTask,
+    teams,
 }) => {
     const [tasks, setTasks] = useState([]);
     const [taskid, setTaskid] = useState();
@@ -80,7 +81,11 @@ const DisplayLineOfEffort = ({
                         >
                             Delete Project
                         </button>
-                        <AddTaskForm loe={loe} createNewTask={createNewTask} />
+                        <AddTaskForm
+                            loe={loe}
+                            createNewTask={createNewTask}
+                            teams={teams}
+                        />
                         <ModifyTaskForm
                             modifyTask={modifyTask}
                             loe={loe}
@@ -103,8 +108,8 @@ const DisplayLineOfEffort = ({
                                             (task) =>
                                                 task.lineOfEffort_id == loe.id
                                         )
-                                        .map((task) => (
-                                            <option value={task.id}>
+                                        .map((task, index) => (
+                                            <option key={index} value={task.id}>
                                                 {task.name}
                                             </option>
                                         ))}

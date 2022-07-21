@@ -44,8 +44,8 @@ class LineOfEffortDelete(APIView):
 class Assets(APIView):
     def get_object(self, pk):
         try:
-            return Task.objects.get(pk=pk)
-        except Task.DoesNotExist:
+            return Asset.objects.get(pk=pk)
+        except Asset.DoesNotExist:
             raise Http404
 
     def get(self, request):

@@ -6,6 +6,7 @@ import axios from "axios";
 import DisplayGoogleChart from "../../components/DisplayGoogleChart/DisplayGoogleChart";
 import DisplayLineOfEffort from "../../components/DisplayLineOfEffort/DisplayLineOfEffort";
 import DisplayTeams from "../../components/DisplayTeams/DisplayTeams";
+import AddTeamForm from "../../components/AddTeamForm/AddTeamForm";
 
 const HomePage = () => {
     // The "user" value from this Hook contains the decoded logged in user information (username, first name, id)
@@ -59,7 +60,7 @@ const HomePage = () => {
                 let response = await axios.get(
                     "http://127.0.0.1:8000/api/LRPlanner/asset/"
                 );
-                console.log("response", response.data);
+                // console.log("response", response.data);
                 setTeams(response.data);
             } catch (error) {
                 console.log(error);
@@ -81,7 +82,7 @@ const HomePage = () => {
     }
 
     async function deleteLineOfEffort(pk) {
-        console.log("pk", pk);
+        // console.log("pk", pk);
         let response = await axios.delete(
             `http://127.0.0.1:8000/api/LRPlanner/loedelete/${pk}/`
         );
@@ -89,11 +90,31 @@ const HomePage = () => {
     }
 
     async function deleteTask(pk) {
-        console.log("pk", pk);
+        // console.log("pk", pk);
         let response = await axios.delete(
             `http://127.0.0.1:8000/api/LRPlanner/tasks/${pk}/`
         );
+        //getTeams();
+    }
+
+    async function deleteTeam(pk) {
+        // console.log("pk", pk);
+        let response = await axios.delete(
+            `http://127.0.0.1:8000/api/LRPlanner/asset/${pk}/`
+        );
         getLinesOfEffort();
+    }
+
+    async function createTeam(newTeam) {
+        try {
+            let response = await axios.post(
+                `http://127.0.0.1:8000/api/LRPlanner/asset/`,
+                newTeam
+            );
+            getLinesOfEffort();
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     return (
@@ -118,10 +139,16 @@ const HomePage = () => {
                     linesOfEffort={linesOfEffort}
                     deleteLineOfEffort={deleteLineOfEffort}
                     deleteTask={deleteTask}
+                    teams={teams}
                 />
             </div>
             <div>
-                <DisplayTeams teams={teams} tasks={tasks} />
+                <AddTeamForm createTeam={createTeam} />
+                <DisplayTeams
+                    teams={teams}
+                    tasks={tasks}
+                    deleteTeam={deleteTeam}
+                />
             </div>
         </div>
     );

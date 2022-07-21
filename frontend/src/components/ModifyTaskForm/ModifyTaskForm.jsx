@@ -12,7 +12,6 @@ const ModifyTaskForm = ({ modifyTask, loe, tasks }) => {
     const [resource, setResource] = useState(1);
     const [asset_id, setAsset_id] = useState(1);
 
-
     let filteredTasks = tasks.filter((task) => task.lineOfEffort_id == loe.id);
 
     function handleSubmit(event) {
@@ -41,10 +40,13 @@ const ModifyTaskForm = ({ modifyTask, loe, tasks }) => {
                 </span> */}
                 <form onSubmit={handleSubmit}>
                     <label>Modify Task</label>
-                    <select value={taskid} onChange={(event) => setTaskid(event.target.value)}>
+                    <select
+                        value={taskid}
+                        onChange={(event) => setTaskid(event.target.value)}
+                    >
                         <option value="">--Please choose an option--</option>
-                        {filteredTasks.map((task) => (
-                            <option value={task.id}>{task.name}</option>
+                        {filteredTasks.map((task, index) => (
+                            <option key={index} value={task.id}>{task.name}</option>
                         ))}
                     </select>
                     <label>Enter New Task Name: </label>

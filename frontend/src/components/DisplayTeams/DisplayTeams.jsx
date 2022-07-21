@@ -1,13 +1,38 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { Chart } from "react-google-charts";
+import AddTeamForm from "../AddTeamForm/AddTeamForm";
+
+const DisplayTeams = ({ teams, deleteTeam }) => {
+    const [tasks, setTasks] = useState([]);
+    const [asset_id, setAsset_id] = useState();
+
+    //console.log("display teams", teams);
+
+    useEffect(() => {
+        getTasks();
+    }, []);
+
+    const getTasks = async () => {
+        try {
+            let response = await axios.get(
+                "http://127.0.0.1:8000/api/LRPlanner/tasks/"
+            );
+            setTasks(response.data);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+    // console.log("tasks", tasks);
+
+    function handleSubmit(event) {
+        console.log(asset_id)
+        deleteTeam(asset_id);
+    }
 
 
-const DisplayTeams = ({teams, tasks}) => {
-    console.log("display teams", teams);
 
     function generateDataforChart() {
-        
-
         // let filteredTasks = tasks.filter(
         //     (task) => task.asset_id == teams.id
         // );
@@ -31,11 +56,10 @@ const DisplayTeams = ({teams, tasks}) => {
             ];
             newNewRows[3] = new Date(startDate);
             newNewRows[4] = new Date(endDate);
-            let id = task.asset_id
+            let id = task.asset_id;
             //console.log('id',id)
             //console.log('team name',teams[id].name)
-            newNewRows[1] = newNewRows[1] + " " + teams[id].name;
-
+            //newNewRows[1] = newNewRows[1] + " " + teams[id].name;
 
             // console.log("startdate", startDate);
             // console.log("enddate", endDate);
@@ -67,21 +91,35 @@ const DisplayTeams = ({teams, tasks}) => {
         },
     };
 
-
-    return ( 
+    return (
         <div>
             Teams section
-
+            
+            <div>
+                <form onSubmit={handleSubmit}>
+                    <label>Delete Team</label>
+                    <select
+                        value={asset_id}
+                        onChange={(event) => setAsset_id(event.target.value) }
+                        
+                    >
+                        <option value="">--Please choose an option--</option>
+                        {teams.map((team, index) => (
+                            <option key={index} value={team.id}>{team.name}</option>
+                        ))}
+                    </select>
+                    <button type="submit">Delete</button>
+                </form>
+            </div>
             <Chart
-            chartType="Gantt"
-            width="100%"
-            height="50%"
-            data={generateDataforChart()}
-            options={options}
-        />
-
+                chartType="Gantt"
+                width="100%"
+                height="50%"
+                data={generateDataforChart()}
+                options={options}
+            />
         </div>
-     );
-}
- 
+    );
+};
+
 export default DisplayTeams;
