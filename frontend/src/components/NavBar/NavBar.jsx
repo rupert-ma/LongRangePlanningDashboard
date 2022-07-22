@@ -21,6 +21,22 @@ const Navbar = () => {
                         <b>Planning Dashboard</b>
                     </Link>
                 </li>
+                <li className="brand">
+                    <Link
+                        to="/teams"
+                        style={{ textDecoration: "none", color: "white" }}
+                    >
+                        <b>Teams View</b>
+                    </Link>
+                </li>
+                <li className="brand">
+                    <Link
+                        to="/alltasks"
+                        style={{ textDecoration: "none", color: "white" }}
+                    >
+                        <b>View All Tasks</b>
+                    </Link>
+                </li>
 
                 <li>
                     {user ? (

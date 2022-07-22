@@ -36,7 +36,7 @@ const HomePage = () => {
             console.log(error);
         }
     };
-    console.log("tasks", tasks);
+    // console.log("tasks", tasks);
 
     async function createNewLoe(loeName) {
         try {
@@ -54,20 +54,20 @@ const HomePage = () => {
         getLinesOfEffort();
     }, []);
 
-    useEffect(() => {
-        async function getTeams() {
-            try {
-                let response = await axios.get(
-                    "http://127.0.0.1:8000/api/LRPlanner/asset/"
-                );
-                // console.log("response", response.data);
-                setTeams(response.data);
-            } catch (error) {
-                console.log(error);
-            }
-        }
-        getTeams();
-    }, []);
+    // useEffect(() => {
+    //     async function getTeams() {
+    //         try {
+    //             let response = await axios.get(
+    //                 "http://127.0.0.1:8000/api/LRPlanner/asset/"
+    //             );
+    //             // console.log("response", response.data);
+    //             setTeams(response.data);
+    //         } catch (error) {
+    //             console.log(error);
+    //         }
+    //     }
+    //     getTeams();
+    // }, []);
 
     async function getLinesOfEffort() {
         try {
@@ -97,25 +97,25 @@ const HomePage = () => {
         //getTeams();
     }
 
-    async function deleteTeam(pk) {
-        // console.log("pk", pk);
-        let response = await axios.delete(
-            `http://127.0.0.1:8000/api/LRPlanner/asset/${pk}/`
-        );
-        getLinesOfEffort();
-    }
+    // async function deleteTeam(pk) {
+    //     // console.log("pk", pk);
+    //     let response = await axios.delete(
+    //         `http://127.0.0.1:8000/api/LRPlanner/asset/${pk}/`
+    //     );
+    //     getLinesOfEffort();
+    // }
 
-    async function createTeam(newTeam) {
-        try {
-            let response = await axios.post(
-                `http://127.0.0.1:8000/api/LRPlanner/asset/`,
-                newTeam
-            );
-            getLinesOfEffort();
-        } catch (error) {
-            console.log(error);
-        }
-    }
+    // async function createTeam(newTeam) {
+    //     try {
+    //         let response = await axios.post(
+    //             `http://127.0.0.1:8000/api/LRPlanner/asset/`,
+    //             newTeam
+    //         );
+    //         getLinesOfEffort();
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+    // }
 
     return (
         <div className="container">
@@ -142,18 +142,17 @@ const HomePage = () => {
                     teams={teams}
                 />
             </div>
-            <div>
+            {/* <div>
                 <AddTeamForm createTeam={createTeam} />
                 <DisplayTeams
                     teams={teams}
                     tasks={tasks}
                     deleteTeam={deleteTeam}
                 />
-            </div>
+            </div> */}
         </div>
     );
 };
 
 export default HomePage;
 
-//timeline that lists assets instead of tasks, shows bar if tasked
