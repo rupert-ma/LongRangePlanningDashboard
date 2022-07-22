@@ -6,6 +6,9 @@ import "./App.css";
 import HomePage from "./pages/HomePage/HomePage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import RegisterPage from "./pages/RegisterPage/RegisterPage";
+import TeamsPage from "./pages/TeamsPage/TeamsPage";
+import TasksPage from "./pages/TasksPage/TasksPage";
+
 
 // Component Imports
 import Navbar from "./components/NavBar/NavBar";
@@ -13,7 +16,7 @@ import Footer from "./components/Footer/Footer";
 
 // Util Imports
 import PrivateRoute from "./utils/PrivateRoute";
-import TeamsPage from "./pages/TeamsPage/TeamsPage";
+
 
 function App() {
   return (
@@ -31,6 +34,8 @@ function App() {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/teams" element={<TeamsPage />} />
+        <Route path="/alltasks" element={<TasksPage />} />
+
       </Routes>
       {/* <Footer /> */}
     </div>
