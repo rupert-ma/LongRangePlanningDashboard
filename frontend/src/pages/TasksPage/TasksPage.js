@@ -6,7 +6,7 @@ import DisplayTeams from "../../components/DisplayTeams/DisplayTeams";
 
 const TasksPage = () => {
     const [tasks, setTasks] = useState([]);
-    const [teams, setTeams] = useState([])
+    const [teams, setTeams] = useState([]);
 
     useEffect(() => {
         getTasks();
@@ -25,17 +25,23 @@ const TasksPage = () => {
     };
     // console.log("tasks", tasks);
 
+    const sortedTasks = tasks.sort((a, b) => {
+        console.log('a',a.start_date)
+        console.log('b',b.start_date)
+        return new Date(a.start_date) - new Date(b.start_date);
+    });
+
     async function getTeams() {
-                try {
-                    let response = await axios.get(
-                        "http://127.0.0.1:8000/api/LRPlanner/asset/"
-                    );
-                    // console.log("response", response.data);
-                    setTeams(response.data);
-                } catch (error) {
-                    console.log(error);
-                }
-            }
+        try {
+            let response = await axios.get(
+                "http://127.0.0.1:8000/api/LRPlanner/asset/"
+            );
+            // console.log("response", response.data);
+            setTeams(response.data);
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     return (
         <div>
@@ -49,8 +55,8 @@ const TasksPage = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {tasks.map((task, index) => {
-                        console.log(task.id);
+                    {sortedTasks.map((task, index) => {
+                        //console.log(task.id);
                         return (
                             <tr key={index}>
                                 <td>{task.name}</td>
