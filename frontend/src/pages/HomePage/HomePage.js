@@ -9,9 +9,6 @@ import DisplayTeams from "../../components/DisplayTeams/DisplayTeams";
 import AddTeamForm from "../../components/AddTeamForm/AddTeamForm";
 
 const HomePage = () => {
-    // The "user" value from this Hook contains the decoded logged in user information (username, first name, id)
-    // The "token" value is the JWT token that you will send in the header of any request requiring authentication
-    //TODO: Add an AddCars Page to add a car for a logged in user's garage
     const [user, token] = useAuth();
     const [linesOfEffort, setLinesOfEffort] = useState([]);
     const [isOpen, setIsOpen] = useState(false);
@@ -24,6 +21,7 @@ const HomePage = () => {
 
     useEffect(() => {
         getTasks();
+        getLinesOfEffort();
     }, []);
 
     const getTasks = async () => {
@@ -32,6 +30,15 @@ const HomePage = () => {
                 "http://127.0.0.1:8000/api/LRPlanner/tasks/"
             );
             setTasks(response.data);
+        } catch (error) {
+            console.log(error);
+        }
+        try {
+            let response = await axios.get(
+                "http://127.0.0.1:8000/api/LRPlanner/asset/"
+            );
+            // console.log("response", response.data);
+            setTeams(response.data);
         } catch (error) {
             console.log(error);
         }
@@ -49,25 +56,6 @@ const HomePage = () => {
             console.log(error);
         }
     }
-
-    useEffect(() => {
-        getLinesOfEffort();
-    }, []);
-
-    // useEffect(() => {
-    //     async function getTeams() {
-    //         try {
-    //             let response = await axios.get(
-    //                 "http://127.0.0.1:8000/api/LRPlanner/asset/"
-    //             );
-    //             // console.log("response", response.data);
-    //             setTeams(response.data);
-    //         } catch (error) {
-    //             console.log(error);
-    //         }
-    //     }
-    //     getTeams();
-    // }, []);
 
     async function getLinesOfEffort() {
         try {
@@ -97,25 +85,25 @@ const HomePage = () => {
         //getTeams();
     }
 
-    // async function deleteTeam(pk) {
-    //     // console.log("pk", pk);
-    //     let response = await axios.delete(
-    //         `http://127.0.0.1:8000/api/LRPlanner/asset/${pk}/`
-    //     );
-    //     getLinesOfEffort();
-    // }
+    async function deleteTeam(pk) {
+        // console.log("pk", pk);
+        let response = await axios.delete(
+            `http://127.0.0.1:8000/api/LRPlanner/asset/${pk}/`
+        );
+        getLinesOfEffort();
+    }
 
-    // async function createTeam(newTeam) {
-    //     try {
-    //         let response = await axios.post(
-    //             `http://127.0.0.1:8000/api/LRPlanner/asset/`,
-    //             newTeam
-    //         );
-    //         getLinesOfEffort();
-    //     } catch (error) {
-    //         console.log(error);
-    //     }
-    // }
+    async function createTeam(newTeam) {
+        try {
+            let response = await axios.post(
+                `http://127.0.0.1:8000/api/LRPlanner/asset/`,
+                newTeam
+            );
+            getLinesOfEffort();
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     return (
         <div className="container">
@@ -135,24 +123,17 @@ const HomePage = () => {
             )}
 
             <div>
-                <DisplayLineOfEffort
-                    linesOfEffort={linesOfEffort}
-                    deleteLineOfEffort={deleteLineOfEffort}
-                    deleteTask={deleteTask}
-                    teams={teams}
-                />
+                {teams.length > 0 && linesOfEffort.length > 0 ? (
+                    <DisplayLineOfEffort
+                        linesOfEffort={linesOfEffort}
+                        deleteLineOfEffort={deleteLineOfEffort}
+                        deleteTask={deleteTask}
+                        teams={teams}
+                    />
+                ) : null}
             </div>
-            {/* <div>
-                <AddTeamForm createTeam={createTeam} />
-                <DisplayTeams
-                    teams={teams}
-                    tasks={tasks}
-                    deleteTeam={deleteTeam}
-                />
-            </div> */}
         </div>
     );
 };
 
 export default HomePage;
-

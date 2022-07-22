@@ -9,8 +9,10 @@ const TasksPage = () => {
     const [teams, setTeams] = useState([]);
 
     useEffect(() => {
+        const controller = new AbortController();
         getTasks();
         getTeams();
+        return () => controller.abort();
     }, []);
 
     const getTasks = async () => {
@@ -26,8 +28,8 @@ const TasksPage = () => {
     // console.log("tasks", tasks);
 
     const sortedTasks = tasks.sort((a, b) => {
-        console.log('a',a.start_date)
-        console.log('b',b.start_date)
+        // console.log("a", a.start_date);
+        // console.log("b", b.start_date);
         return new Date(a.start_date) - new Date(b.start_date);
     });
 
@@ -45,6 +47,7 @@ const TasksPage = () => {
 
     return (
         <div>
+            {tasks.length>0 && teams.length>0 ?
             <table className="table-layout">
                 <thead>
                     <tr>
@@ -68,6 +71,8 @@ const TasksPage = () => {
                     })}
                 </tbody>
             </table>
+            : null
+        }
         </div>
     );
 };

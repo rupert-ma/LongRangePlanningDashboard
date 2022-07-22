@@ -4,17 +4,20 @@ import axios from "axios";
 import AddTeamForm from "../../components/AddTeamForm/AddTeamForm";
 import DisplayTeams from "../../components/DisplayTeams/DisplayTeams";
 
-
-
 const TeamsPage = () => {
     const [teams, setTeams] = useState([]);
     const [tasks, setTasks] = useState([]);
 
-    useEffect(() => {
-        getTasks();
-    }, []);
-
-    const getTasks = async () => {
+    async function getTeams() {
+        try {
+            let response = await axios.get(
+                "http://127.0.0.1:8000/api/LRPlanner/asset/"
+            );
+            // console.log("response", response.data);
+            setTeams(response.data);
+        } catch (error) {
+            console.log(error);
+        }
         try {
             let response = await axios.get(
                 "http://127.0.0.1:8000/api/LRPlanner/tasks/"
@@ -23,21 +26,9 @@ const TeamsPage = () => {
         } catch (error) {
             console.log(error);
         }
-    };
-    // console.log("tasks", tasks);
+    }
 
     useEffect(() => {
-        async function getTeams() {
-            try {
-                let response = await axios.get(
-                    "http://127.0.0.1:8000/api/LRPlanner/asset/"
-                );
-                // console.log("response", response.data);
-                setTeams(response.data);
-            } catch (error) {
-                console.log(error);
-            }
-        }
         getTeams();
     }, []);
 
@@ -46,7 +37,7 @@ const TeamsPage = () => {
         let response = await axios.delete(
             `http://127.0.0.1:8000/api/LRPlanner/asset/${pk}/`
         );
-        //getLinesOfEffort();
+        getTeams();
     }
 
     async function createTeam(newTeam) {
@@ -55,23 +46,23 @@ const TeamsPage = () => {
                 `http://127.0.0.1:8000/api/LRPlanner/asset/`,
                 newTeam
             );
-            //getTeams();
         } catch (error) {
             console.log(error);
         }
+        getTeams();
     }
-
-
 
     return (
         <div>
-             <div>
+            <div>
                 <AddTeamForm createTeam={createTeam} />
-                <DisplayTeams
-                    teams={teams}
-                    tasks={tasks}
-                    deleteTeam={deleteTeam}
-                />
+                {tasks.length > 0 && teams.length > 0 ? (
+                    <DisplayTeams
+                        teams={teams}
+                        tasks={tasks}
+                        deleteTeam={deleteTeam}
+                    />
+                ) : null}
             </div>
         </div>
     );

@@ -3,17 +3,21 @@ import axios from "axios";
 import { Chart } from "react-google-charts";
 import AddTeamForm from "../AddTeamForm/AddTeamForm";
 
-const DisplayTeams = ({ teams, deleteTeam }) => {
+const DisplayTeams = ({ deleteTeam }) => {
     const [tasks, setTasks] = useState([]);
+    const [teams, setTeams] = useState([]);
     const [asset_id, setAsset_id] = useState();
 
-    //console.log("display teams", teams);
-
-    useEffect(() => {
-        getTasks();
-    }, []);
-
-    const getTasks = async () => {
+    async function getTeams() {
+        try {
+            let response = await axios.get(
+                "http://127.0.0.1:8000/api/LRPlanner/asset/"
+            );
+            // console.log("response", response.data);
+            setTeams(response.data);
+        } catch (error) {
+            console.log(error);
+        }
         try {
             let response = await axios.get(
                 "http://127.0.0.1:8000/api/LRPlanner/tasks/"
@@ -22,22 +26,20 @@ const DisplayTeams = ({ teams, deleteTeam }) => {
         } catch (error) {
             console.log(error);
         }
-    };
-    // console.log("tasks", tasks);
+    }
+
+    useEffect(() => {
+        getTeams();
+    }, []);
+    console.log("tasks", tasks);
+    console.log("display teams", teams);
 
     function handleSubmit(event) {
-        console.log(asset_id)
+        console.log(asset_id);
         deleteTeam(asset_id);
     }
 
-
-
     function generateDataforChart() {
-        // let filteredTasks = tasks.filter(
-        //     (task) => task.asset_id == teams.id
-        // );
-        // console.log("filteredtasks", filteredTasks);
-
         let rows = tasks.map((task) => {
             let newNewRows = Object.values(task);
             newNewRows.pop();
@@ -57,9 +59,10 @@ const DisplayTeams = ({ teams, deleteTeam }) => {
             newNewRows[3] = new Date(startDate);
             newNewRows[4] = new Date(endDate);
             let id = task.asset_id;
-            console.log('id',id)
-            console.log('team name : ',teams[id].name)
+            // console.log("id", id);
+            // console.log("team name : ", teams[id].name);
             newNewRows[1] = newNewRows[1] + " : " + teams[id].name;
+            
 
             // console.log("startdate", startDate);
             // console.log("enddate", endDate);
@@ -94,30 +97,32 @@ const DisplayTeams = ({ teams, deleteTeam }) => {
     return (
         <div>
             Teams section
-            
             <div>
                 <form onSubmit={handleSubmit}>
                     <label>Delete Team</label>
                     <select
                         value={asset_id}
-                        onChange={(event) => setAsset_id(event.target.value) }
-                        
+                        onChange={(event) => setAsset_id(event.target.value)}
                     >
                         <option value="">--Please choose an option--</option>
                         {teams.map((team, index) => (
-                            <option key={index} value={team.id}>{team.name}</option>
+                            <option key={index} value={team.id}>
+                                {team.name}
+                            </option>
                         ))}
                     </select>
                     <button type="submit">Delete</button>
                 </form>
             </div>
-            <Chart
-                chartType="Gantt"
-                width="100%"
-                height="50%"
-                data={generateDataforChart()}
-                options={options}
-            />
+            {(tasks.length > 0 && teams.length > 0) ? (
+                <Chart
+                    chartType="Gantt"
+                    width="100%"
+                    height="50%"
+                    data={generateDataforChart()}
+                    options={options}
+                />
+            ) : null}
         </div>
     );
 };
