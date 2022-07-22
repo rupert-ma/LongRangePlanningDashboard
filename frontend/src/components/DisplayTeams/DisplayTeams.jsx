@@ -57,9 +57,9 @@ const DisplayTeams = ({ teams, deleteTeam }) => {
             newNewRows[3] = new Date(startDate);
             newNewRows[4] = new Date(endDate);
             let id = task.asset_id;
-            //console.log('id',id)
-            //console.log('team name',teams[id].name)
-            //newNewRows[1] = newNewRows[1] + " " + teams[id].name;
+            console.log('id',id)
+            console.log('team name : ',teams[id].name)
+            newNewRows[1] = newNewRows[1] + " : " + teams[id].name;
 
             // console.log("startdate", startDate);
             // console.log("enddate", endDate);
