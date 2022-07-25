@@ -13,18 +13,18 @@ const AddTeamForm = ( {createTeam}) => {
 
     return ( 
         <div>
-            <div>
+            <div className='form-group row'>
                 {/* <span className="close-icon" onClick={props.handleClose}>
                     words here?
                 </span> */}
                 <form onSubmit={handleSubmit}>
-                    <label>Enter Team Name: </label>
+                    <label className="col-sm-2 col-form-label">Enter Team Name: </label>
                     <input
                         type="text"
                         value={teamName}
                         onChange={(event) => setTeamName(event.target.value)}
                     />
-                    <button type="submit">Submit</button>
+                    <button className="btn btn-primary btn-sm" type="submit">Submit</button>
                 </form>
             </div>
         </div>

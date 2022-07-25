@@ -4,10 +4,10 @@ ul {
   list-style-type: none;
 }
 
-li {
+/* li {
   font-size: 1.25rem;
-}
-
+} */
+/* 
 .navBar {
   background: steelblue;
   box-shadow: 4px 2px 5px gray;
@@ -34,7 +34,7 @@ li {
   font-size: 2rem;
 }
 
-/* .inputone {
+ .inputone {
   background: transparent;
   border: 2px solid white;
   color: white;

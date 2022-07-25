@@ -111,7 +111,7 @@ const DisplayTeams = ({ deleteTeam }) => {
                             </option>
                         ))}
                     </select>
-                    <button type="submit">Delete</button>
+                    <button className="btn btn-danger btn-sm disabled" type="submit">Delete</button>
                 </form>
             </div>
             {(tasks.length > 0 && teams.length > 0) ? (

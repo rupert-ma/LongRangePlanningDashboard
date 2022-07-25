@@ -106,14 +106,14 @@ const HomePage = () => {
     }
 
     return (
-        <div className="container">
+        <div className="" style={{margin: 20}}>
             {/* <h1>Home Page for {user.username}!</h1> */}
 
-            <input
+            <input 
                 type="button"
                 value="Add New Project"
                 onClick={togglePopup}
-                className="inputone"
+                className="btn btn-primary btn-sm"
             />
             {isOpen && (
                 <AddLoeForm
@@ -122,7 +122,7 @@ const HomePage = () => {
                 />
             )}
 
-            <div>
+            <div >
                 {teams.length > 0 && linesOfEffort.length > 0 ? (
                     <DisplayLineOfEffort
                         linesOfEffort={linesOfEffort}

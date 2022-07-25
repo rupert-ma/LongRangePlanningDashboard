@@ -11,14 +11,14 @@ const Navbar = () => {
     const navigate = useNavigate();
 
     return (
-        <div className="navBar">
+        <div className="navbar navbar-expand-lg navbar-dark bg-primary">
             <ul>
                 <li className="brand">
                     <Link
                         to="/"
                         style={{ textDecoration: "none", color: "white" }}
                     >
-                        <b>Planning Dashboard</b>
+                        <h1>Planning Dashboard</h1>
                     </Link>
                 </li>
                 <li className="brand">
@@ -26,7 +26,7 @@ const Navbar = () => {
                         to="/teams"
                         style={{ textDecoration: "none", color: "white" }}
                     >
-                        <b>Teams View</b>
+                        <p>Teams View</p>
                     </Link>
                 </li>
                 <li className="brand">
@@ -34,15 +34,23 @@ const Navbar = () => {
                         to="/alltasks"
                         style={{ textDecoration: "none", color: "white" }}
                     >
-                        <b>View All Tasks</b>
+                        <p>View All Tasks</p>
                     </Link>
                 </li>
 
                 <li>
                     {user ? (
-                        <button onClick={logoutUser}>Logout</button>
+                        <button
+                            className="btn btn-secondary btn-sm"
+                            onClick={logoutUser}
+                        >
+                            Logout
+                        </button>
                     ) : (
-                        <button onClick={() => navigate("/login")}>
+                        <button
+                            className="btn btn-secondary btn-sm"
+                            onClick={() => navigate("/login")}
+                        >
                             Login
                         </button>
                     )}

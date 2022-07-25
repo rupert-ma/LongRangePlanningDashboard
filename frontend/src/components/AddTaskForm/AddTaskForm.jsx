@@ -30,41 +30,41 @@ const AddTaskForm = ({ createNewTask, loe, teams }) => {
 
     return (
         <div>
-            <div>
-                {/* <span className="close-icon" onClick={props.handleClose}>
-                    words here?
-                </span> */}
+            <div className="form-group row">
                 <form onSubmit={handleSubmit}>
-                    <label>Enter Task Name: </label>
+                    <label className="col-sm-2 col-form-label">Enter Task Name: </label>
                     <input
                         type="text"
                         value={taskName}
                         onChange={(event) => setTaskName(event.target.value)}
                     />
-                    <label>Enter Start Date: </label>
+                    <label className="col-sm-2 col-form-label">Enter Start Date: </label>
                     <input
                         type="date"
                         value={startDate}
                         onChange={(event) => setStartDate(event.target.value)}
                     />
-                    <label>Enter End Date: </label>
+                    <label className="col-sm-2 col-form-label">Enter End Date: </label>
                     <input
                         type="date"
                         value={endDate}
                         onChange={(event) => setEndDate(event.target.value)}
                     />
-                    <label>Assign Team</label>
+                    <label className="col-sm-2 col-form-label">Assign Team</label>
                     <select
                         value={asset_id}
-                        onChange={(event) => setAsset_id(event.target.value) }
-                        
+                        onChange={(event) => setAsset_id(event.target.value)}
                     >
                         <option value="">--Please choose an option--</option>
                         {teams.map((team, index) => (
-                            <option key={index} value={team.id}>{team.name}</option>
+                            <option key={index} value={team.id}>
+                                {team.name}
+                            </option>
                         ))}
                     </select>
-                    <button type="submit">Submit</button>
+                    <button className="btn btn-primary btn-sm" type="submit">
+                        Submit
+                    </button>
                 </form>
             </div>
         </div>

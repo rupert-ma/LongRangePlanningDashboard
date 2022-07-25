@@ -34,12 +34,10 @@ const ModifyTaskForm = ({ modifyTask, loe, tasks }) => {
 
     return (
         <div>
-            <div>
-                {/* <span className="close-icon" onClick={props.handleClose}>
-                    words here?
-                </span> */}
+            <div className="form-group row">
+              
                 <form onSubmit={handleSubmit}>
-                    <label>Modify Task</label>
+                    <label className="col-sm-2 col-form-label">Modify Task</label>
                     <select
                         value={taskid}
                         onChange={(event) => setTaskid(event.target.value)}
@@ -49,25 +47,25 @@ const ModifyTaskForm = ({ modifyTask, loe, tasks }) => {
                             <option key={index} value={task.id}>{task.name}</option>
                         ))}
                     </select>
-                    <label>Enter New Task Name: </label>
+                    <label className="col-sm-2 col-form-label">Enter New Task Name: </label>
                     <input
                         type="text"
                         value={taskName}
                         onChange={(event) => setTaskName(event.target.value)}
                     />
-                    <label>Enter New Start Date: </label>
+                    <label className="col-sm-2 col-form-label">Enter New Start Date: </label>
                     <input
                         type="date"
                         value={startDate}
                         onChange={(event) => setStartDate(event.target.value)}
                     />
-                    <label>Enter New End Date: </label>
+                    <label className="col-sm-2 col-form-label">Enter New End Date: </label>
                     <input
                         type="date"
                         value={endDate}
                         onChange={(event) => setEndDate(event.target.value)}
                     />
-                    <button type="submit">Submit</button>
+                    <button className="btn btn-primary btn-sm" type="submit">Submit</button>
                 </form>
             </div>
         </div>

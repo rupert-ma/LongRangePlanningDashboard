@@ -13,18 +13,15 @@ const AddLoeForm = ({ createNewLoe }) => {
 
     return (
         <div>
-            <div>
-                {/* <span className="close-icon" onClick={props.handleClose}>
-                    words here?
-                </span> */}
+            <div className="form-group row" >
                 <form onSubmit={handleSubmit}>
-                    <label>Enter Project Name: </label>
+                    <label className="col-sm-2 col-form-label">Enter Project Name: </label>
                     <input
                         type="text"
                         value={loeName}
                         onChange={(event) => setLoeName(event.target.value)}
                     />
-                    <button type="submit">Submit</button>
+                    <button className="btn btn-primary btn-sm" type="submit">Submit</button>
                 </form>
             </div>
         </div>
