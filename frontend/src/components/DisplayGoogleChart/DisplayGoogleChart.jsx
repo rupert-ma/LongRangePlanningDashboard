@@ -60,7 +60,7 @@ const DisplayGoogleChart = ({ loe, tasks }) => {
     ];
 
     const options = {
-        height: 400,
+        height: 225,
         gantt: {
             trackHeight: 30,
         },

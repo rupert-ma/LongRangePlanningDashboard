@@ -32,25 +32,33 @@ const AddTaskForm = ({ createNewTask, loe, teams }) => {
         <div>
             <div className="form-group row">
                 <form onSubmit={handleSubmit}>
-                    <label className="col-sm-2 col-form-label">Enter Task Name: </label>
+                    <label className="col-sm-2 col-form-label">
+                        Enter Task Name:{" "}
+                    </label>
                     <input
                         type="text"
                         value={taskName}
                         onChange={(event) => setTaskName(event.target.value)}
                     />
-                    <label className="col-sm-2 col-form-label">Enter Start Date: </label>
+                    <label className="col-sm-2 col-form-label">
+                        Enter Start Date:{" "}
+                    </label>
                     <input
                         type="date"
                         value={startDate}
                         onChange={(event) => setStartDate(event.target.value)}
                     />
-                    <label className="col-sm-2 col-form-label">Enter End Date: </label>
+                    <label className="col-sm-2 col-form-label">
+                        Enter End Date:{" "}
+                    </label>
                     <input
                         type="date"
                         value={endDate}
                         onChange={(event) => setEndDate(event.target.value)}
                     />
-                    <label className="col-sm-2 col-form-label">Assign Team</label>
+                    <label className="col-sm-2 col-form-label">
+                        Assign Team
+                    </label>
                     <select
                         value={asset_id}
                         onChange={(event) => setAsset_id(event.target.value)}

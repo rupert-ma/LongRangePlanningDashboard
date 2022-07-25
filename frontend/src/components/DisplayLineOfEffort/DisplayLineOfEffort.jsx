@@ -73,7 +73,8 @@ const DisplayLineOfEffort = ({
                 return (
                     <div key={index} className="card border-secondary mb-3">
                         <h1>{loe.name}</h1>
-                        <button className="btn btn-outline-danger"
+                        <button
+                            className="btn btn-outline-danger"
                             value={loe.id}
                             onClick={(event) =>
                                 handleDelete(event.target.value)
@@ -93,7 +94,9 @@ const DisplayLineOfEffort = ({
                         />
                         <div className="form-group row">
                             <form onSubmit={handleSubmit}>
-                                <label className="col-sm-2 col-form-label">Delete Task</label>
+                                <label className="col-sm-2 col-form-label">
+                                    Delete Task
+                                </label>
                                 <select
                                     value={taskid}
                                     onChange={(event) =>
@@ -114,7 +117,12 @@ const DisplayLineOfEffort = ({
                                             </option>
                                         ))}
                                 </select>
-                                <button className="btn btn-danger btn-sm disabled" type="submit">Delete</button>
+                                <button
+                                    className="btn btn-danger btn-sm disabled"
+                                    type="submit"
+                                >
+                                    Delete
+                                </button>
                             </form>
                         </div>
 

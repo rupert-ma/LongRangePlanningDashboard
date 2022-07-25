@@ -62,7 +62,6 @@ const DisplayTeams = ({ deleteTeam }) => {
             // console.log("id", id);
             // console.log("team name : ", teams[id].name);
             newNewRows[1] = newNewRows[1] + " : " + teams[id].name;
-            
 
             // console.log("startdate", startDate);
             // console.log("enddate", endDate);
@@ -111,10 +110,15 @@ const DisplayTeams = ({ deleteTeam }) => {
                             </option>
                         ))}
                     </select>
-                    <button className="btn btn-danger btn-sm disabled" type="submit">Delete</button>
+                    <button
+                        className="btn btn-danger btn-sm disabled"
+                        type="submit"
+                    >
+                        Delete
+                    </button>
                 </form>
             </div>
-            {(tasks.length > 0 && teams.length > 0) ? (
+            {tasks.length > 0 && teams.length > 0 ? (
                 <Chart
                     chartType="Gantt"
                     width="100%"
