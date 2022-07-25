@@ -118,7 +118,7 @@ const DisplayLineOfEffort = ({
                                         ))}
                                 </select>
                                 <button
-                                    className="btn btn-danger btn-sm disabled"
+                                    className="btn btn-danger btn-sm"
                                     type="submit"
                                 >
                                     Delete

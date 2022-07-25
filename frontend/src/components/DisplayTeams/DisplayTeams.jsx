@@ -37,6 +37,7 @@ const DisplayTeams = ({ deleteTeam }) => {
     function handleSubmit(event) {
         console.log(asset_id);
         deleteTeam(asset_id);
+        getTeams();
     }
 
     function generateDataforChart() {
@@ -111,7 +112,7 @@ const DisplayTeams = ({ deleteTeam }) => {
                         ))}
                     </select>
                     <button
-                        className="btn btn-danger btn-sm disabled"
+                        className="btn btn-danger btn-sm"
                         type="submit"
                     >
                         Delete

@@ -1,7 +1,7 @@
 // General Imports
 import { Routes, Route } from "react-router-dom";
 import "./App.css";
-import "bootswatch/dist/spacelab/bootstrap.min.css"; // Added this :boom:
+import "bootswatch/dist/sandstone/bootstrap.min.css"; // Added this :boom:
 
 // Pages Imports
 import HomePage from "./pages/HomePage/HomePage";
